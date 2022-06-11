@@ -1,0 +1,30 @@
+<div class="body-sticky">
+<div>
+  <div class="col-12-new text-center">
+    <div class="background">
+      <video class="video" #video autoplay [class.active]="state === 'recording'"></video>
+      <!-- <video #recording autoplay playsInline muted [controls]="false" [class.active]="state === 'recording'"></video> -->
+      <!-- <video #preview autoplay playsInline muted [controls]="false" [class.active]="state === 'preview'"></video> -->
+      <div class="layer"></div>
+    </div>
+  </div>
+</div>
+<div>
+  <!-- Comment below div for input video upload-->
+  <div class="col-12 text-center">
+    <div *ngIf="!showInstructionsModal">
+      <button class="btn btnConfirm" (click)="showInstructions()" [disabled]="disableAvvia">Avvia</button>
+    </div>
+    <div *ngIf="showInstructionsModal" class="instruction">
+      <span class="instructionContent">{{instruction}}</span>
+    </div>
+  </div>
+  <!-- uncomment below div for input video upload-->
+  <!-- <div class="col-12 text-center">
+    <input type="file" accept="video/*" #inputFile class="fileButton" (change)="onSelectedFile($event)" />
+    <button class="btn btnConfirm">{{ "Avvia" | translate }}</button>
+    <video #video1 class="testVideo" *ngIf="blob" width="320" height="240" controls [attr.src]="blob"
+      (loadedmetadata)="getDuration($event)">
+    </video>
+  </div> -->
+</div>

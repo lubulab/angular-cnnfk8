@@ -1,0 +1,161 @@
+video {
+  display: none;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transform: scale(-1, 1); /*For Firefox (& IE) */
+  -webkit-transform: scale(-1, 1); /*For Ios */
+  &.active {
+    display: block;
+  }
+}
+
+.btnConfirm {
+  margin-top: 5.5vh;
+}
+
+.background {
+  margin-top: 3.5vh;
+  width: 100vw;
+  height: 80vh;
+  overflow: hidden;
+  background-size: cover;
+  flex: 1 1;
+  align-self: stretch;
+  position: relative;
+}
+
+.layer {
+  background-image: radial-gradient(ellipse 32vw 26vh at calc(100% - 50vw) calc(100% - 37vh),
+      transparent 31vw,
+      rgba(62, 62, 62, 0.7));
+  position: absolute;
+  height: 80vh;
+  width: 100vw;
+  object-fit: cover;
+  ;
+}
+
+.col-12-new {
+  flex: 0 0 100%;
+  max-width: 100%;
+  position: relative;
+  width: 100%;
+  padding-right: 0px !important;
+  padding-left: 0px !important;
+}
+
+@media (max-width: 320px) {
+  .background {
+    margin-top: 6.6vh;
+  }
+
+  .btn {
+    height: 35px;
+  }
+
+  .btnConfirm {
+    margin-top: 2.5vh;
+  }
+
+  .instruction {
+    margin-top: 4vh;
+  }
+}
+
+@media (max-width: 350px) and (min-width: 301px) {
+  .background {
+    margin-top: 7.6vh;
+  }
+
+  .instruction {
+    margin-top: 4vh;
+  }
+}
+
+@media (max-width: 365px) and (min-width: 351px) {
+  .btnConfirm {
+    margin-top: 4.5vh;
+  }
+
+  .instruction {
+    margin-top: 7vh;
+  }
+}
+
+@media (max-width: 380px) and (min-width: 366px) {
+  .btnConfirm {
+    margin-top: 5.5vh;
+  }
+
+  .instruction {
+    margin-top: 7vh;
+  }
+}
+
+@media (max-width: 699px) and (min-width: 381px) {
+  .btnConfirm {
+    margin-top: 5vh;
+  }
+
+  .instruction {
+    margin-top: 7vh;
+  }
+}
+
+@media (min-width: 700px) {
+  .body-sticky {
+    margin-left: 0px;
+    margin-right: 0px;
+  }
+
+  .instruction {
+    margin-top: 10vh;
+  }
+}
+
+.body-sticky {
+  min-height: 100vh;
+}
+
+.fileButton {
+  opacity: 0;
+  position: absolute;
+  margin-top: 50px;
+  font-size: 30px;
+  z-index: -1;
+}
+
+.instructionContent {
+  font-size: 16px;
+  font-family: 'OpenSans';
+  font-weight: bold;
+  color: #3e3e3e;
+  line-height: 1.25;
+  letter-spacing: normal;
+}
+
+.fallbackBtn {
+  max-width: 450px;
+  width: 100%;
+  height: 48px;
+  border-radius: 26px;
+  font-family: 'BNPPSans';
+  font-style: normal;
+  font-stretch: normal;
+  line-height: 1;
+  letter-spacing: normal;
+  text-align: center;
+  margin-top: 25px;
+  background-color: white;
+  border-width: 0;
+}
+
+.body-sticky {
+  overflow-y: hidden;
+}
+
+.testVideo {
+  display: none;
+}
