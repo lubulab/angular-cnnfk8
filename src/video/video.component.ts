@@ -263,11 +263,11 @@ export class VideoComponent implements OnInit {
   }
 
   getInstruction(key: string): string {
-    console.log('START: getInstruction')
+    //console.log('START: getInstruction')
     speechSynthesis.speak(
       new SpeechSynthesisUtterance(modalConstants[key].instruction)
     );
-    console.log('END: getInstruction')
+    //console.log('END: getInstruction')
     return modalConstants[key].instruction;
   }
 
