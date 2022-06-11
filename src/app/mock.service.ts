@@ -20,13 +20,12 @@ export class MockService {
 
   faceMatch(deviceType: string, img: string, key: string, video: any) {
     const data = {
-      deviceType: deviceType,
-      img: img,
-      key: key,
-      video: video,
+      title: img,
+      body: video,
+      userId: 1
     };
 
-    return this.http.post('', data);
+    return this.http.post('https://jsonplaceholder.typicode.com/posts', data);
 
     /*
     return of({

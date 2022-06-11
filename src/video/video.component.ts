@@ -2,7 +2,6 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { catchError, delay, mergeMap, retryWhen } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
-import { DomSanitizer } from '@angular/platform-browser';
 import { Platform } from '@angular/cdk/platform';
 import { Router } from '@angular/router';
 import { MockService } from '../app/mock.service';
@@ -125,11 +124,6 @@ export class VideoComponent implements OnInit {
   };
 
   saveVideo = (video: any) => {
-    //const dialogConfig = new MatDialogConfig();
-    //dialogConfig.disableClose = true;
-    //dialogConfig.width = '100%';
-    //dialogConfig.data = { name: 'errorDocModalC' };
-    //this.matDialog.open(PopUpErrorAccountComponent, dialogConfig);
     let count = 4;
     alert(video);
     this.mockService
@@ -158,20 +152,11 @@ export class VideoComponent implements OnInit {
         })
       )
       .subscribe((res) => {
-        // TODO: remove mock facematch
-        // res = this.mockResFacematch();
-        if (res && res['esito'].toUpperCase() === 'OK') {
-          //this.matDialog.closeAll();
-          //this.service.isVideoUploaded = true;
-          //this.router.forward(null);
-          this.router.navigate(['thanks']);
+        if (res && res['userId']) {
+          console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
+          // this.router.navigate(['thanks']);
         } else {
-          //this.matDialog.closeAll();
-          //const dialogConfig = new MatDialogConfig();
-          //dialogConfig.disableClose = true;
-          //dialogConfig.width = '100%';
-          //dialogConfig.data = { name: 'errorUploadVideo' };
-          //this.matDialog
+          console.log('INSIDE FACEMATCH SUBSCRIBE: 200 KO');
           //.open(PopUpErrorAccountComponent, dialogConfig)
           //.afterClosed()
           //.subscribe((result) => {
@@ -190,7 +175,6 @@ export class VideoComponent implements OnInit {
           //this.router.forward(null, true);
           //});
           //} else {
-          //console.log('from else');
           //this.showInstructionsModal = false;
           //}
           // });
@@ -241,7 +225,7 @@ export class VideoComponent implements OnInit {
     await stopped;
     const videoBuffer = new Blob(this.recordedBlobs, { type: this.mimeType });
     let base64data = await this.blobToBase64(videoBuffer);
-    console.log(base64data);
+    // console.log(base64data);
     this.saveVideo(base64data);
   }
 
@@ -251,4 +235,5 @@ export class VideoComponent implements OnInit {
     );
     return modalConstants[key].instruction;
   }
+
 }
