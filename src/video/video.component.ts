@@ -37,15 +37,10 @@ const modalConstants = {
 export class VideoComponent implements OnInit {
   @ViewChild('inputFile', { static: false }) inputFile: ElementRef;
   @ViewChild('video', { static: false }) videoElementRef!: ElementRef;
-  recorder: any;
-  blob: any;
-  state = 'recording';
   counter: number = 0;
   showInstructionsModal: boolean;
   instruction: string;
-  videoDuration: number;
   options: any;
-  disableAvvia: boolean = true;
   key: string;
   deviceType: string;
   videoElement!: HTMLVideoElement;
@@ -53,15 +48,12 @@ export class VideoComponent implements OnInit {
   recordVideoElement!: HTMLVideoElement;
   mediaRecorder: any;
   recordedBlobs: Blob[] = [];
-  istruzioneAttuale!: string;
   isRecording: boolean = false;
   count: number = 1;
-  timer!: any;
   mimeType!: string;
   videoInstructions: any;
 
   constructor(
-    private sanitizer: DomSanitizer,
     private platform: Platform,
     private mockService: MockService,
     private router: Router
@@ -91,7 +83,6 @@ export class VideoComponent implements OnInit {
         this.videoElement.width = window.screen.availWidth;
         this.stream = stream;
         this.videoElement.srcObject = this.stream;
-        this.disableAvvia = false;
       });
   }
 
@@ -103,13 +94,8 @@ export class VideoComponent implements OnInit {
 
   showInstructions() {
     let nmoves = '3';
-    // TODO: Uncomment below line for mock
-    let sessionId = 'EIRFORPAYBACK' + Math.floor(Math.random() * 5 + 0); //change upper limit to 1000 for realtime
-    // For Qual
-    // let sessionId = this.service.ENCRYPTEDBNLSESSIONID;
+    let sessionId = 'EIRFORPAYBACK' + Math.floor(Math.random() * 5 + 0); 
     this.mockService.livenessInit(sessionId, nmoves).subscribe((res) => {
-      // TODO: remove mock liveness
-      // res = this.mockResLiveness();
       if (res['esito'].toUpperCase() === 'OK') {
         this.videoInstructions = res['moves'];
         this.key = res['key'];
@@ -119,7 +105,6 @@ export class VideoComponent implements OnInit {
   }
 
   startRecording = async () => {
-    this.state = 'recording';
     this.mimeType = 'video/webm';
     if (!isMimeTypeSupported(this.mimeType)) {
       this.mimeType = 'video/mp4; codecs="avc1.424028, mp4a.40.2"';
@@ -132,7 +117,7 @@ export class VideoComponent implements OnInit {
     }
     this.mediaRecorder.width = this.options.width;
     this.mediaRecorder.height = this.options.height;
-    this.mediaRecorder.start(); // collect 100ms of data
+    this.mediaRecorder.start();
     this.isRecording = true;
     this.startTimer();
     this.onDataAvailableEvent();

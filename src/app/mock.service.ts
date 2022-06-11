@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 
@@ -5,7 +6,7 @@ import { Observable, of } from 'rxjs';
   providedIn: 'root',
 })
 export class MockService {
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   livenessInit(sessionId: string, nmoves: string): Observable<any> {
     return of({
@@ -25,6 +26,9 @@ export class MockService {
       video: video,
     };
 
+    return this.http.post('', data);
+
+    /*
     return of({
       esito: 'OK',
       errorCode: null,
@@ -42,5 +46,6 @@ export class MockService {
         },
       ],
     });
+    */
   }
 }
