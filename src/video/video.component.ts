@@ -1,7 +1,7 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-//import { catchError, delay, mergeMap, retryWhen } from 'rxjs/operators';
-//import { of, throwError } from 'rxjs';
-//import { HttpErrorResponse } from '@angular/common/http';
+import { catchError, delay, mergeMap, retryWhen } from 'rxjs/operators';
+import { of, throwError } from 'rxjs';
+import { HttpErrorResponse } from '@angular/common/http';
 import { Platform } from '@angular/cdk/platform';
 import { Router } from '@angular/router';
 import { MockService } from '../app/mock.service';
@@ -148,7 +148,7 @@ export class VideoComponent implements OnInit {
     // alert(video);
     this.mockService
       .faceMatch(this.deviceType, '', this.key, video.split(';base64,')[1], scenario)
-      /*
+      
       .pipe(
         retryWhen((errors) =>
           errors.pipe(
@@ -172,7 +172,7 @@ export class VideoComponent implements OnInit {
           return null;
         })
       )
-      */
+      
       .subscribe((res) => {
         if (res && res['data']) {
           console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
