@@ -51,10 +51,12 @@ export class VideoComponent implements OnInit {
   count: number = 1;
   mimeType!: string;
   videoInstructions: any;
+  /*
   bodyParser = {
     json: {limit: '50mb', extended: true},
     urlencoded: {limit: '50mb', extended: true}
   };
+  */
 
   constructor(
     private platform: Platform,
@@ -97,7 +99,7 @@ export class VideoComponent implements OnInit {
 
   async ngOnInit() {
     //console.log('START: ngOnInit')
-    console.log('v1.6');
+    console.log('v1.7');
     this.options = { ...getDimensions() };
     this.getDeviceType();
     this.initializeMediaRecorder();
@@ -172,7 +174,7 @@ export class VideoComponent implements OnInit {
       )
       */
       .subscribe((res) => {
-        if (res && res['id'] === 101) {
+        if (res && res['data']) {
           console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
           // this.router.navigate(['thanks']);
         } else {

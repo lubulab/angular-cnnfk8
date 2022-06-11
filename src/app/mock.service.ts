@@ -25,12 +25,6 @@ export class MockService {
       userId: 1
     };
 
-    let data200KO = {
-      title: img,
-      body: key,
-      userId: 50
-    };
-
     let dataString = {
       title: img,
       body: key,
@@ -39,8 +33,8 @@ export class MockService {
 
     let data = {};
 
-    let endpointOK = 'https://jsonplaceholder.typicode.com/posts';
-    let endpointKO = 'https://jsonplaceholder.typicode.com/postszz';
+    let endpointOK = 'https://httpbin.org/post';
+    let endpointKO = 'https://httpbin.org/postzz';
     let endpoint = '';
 
     switch (scenario) {
@@ -48,12 +42,6 @@ export class MockService {
       case 1:
         console.log('Base64 to API 200 OK');
         data = dataBase64;
-        endpoint = endpointOK;
-        break;
-      // NOT WORKING
-      case 3:
-        console.log('Base64 to API 200 KO');
-        data = data200KO;
         endpoint = endpointOK;
         break;
       case 5:
@@ -68,12 +56,6 @@ export class MockService {
         data = dataString;
         endpoint = endpointOK;
         break;
-      // NOT WORKING
-      case 4:
-        console.log('String to API 200 KO');
-        data = data200KO;
-        endpoint = endpointOK;
-        break;
       case 6:
         console.log('String to API 500 KO');
         data = dataString;
@@ -81,7 +63,8 @@ export class MockService {
         break;            
     }
 
-    return this.http.post(endpoint, JSON.stringify(data));
+    return this.http.post(endpoint, data);
+    //return this.http.post(endpoint, JSON.stringify(data));
 
     /*
     return of({
