@@ -86,6 +86,7 @@ export class VideoComponent implements OnInit {
   }
 
   async ngOnInit() {
+    console.log('v1.0');
     this.options = { ...getDimensions() };
     this.getDeviceType();
     this.initializeMediaRecorder();
