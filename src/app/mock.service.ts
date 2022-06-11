@@ -18,14 +18,65 @@ export class MockService {
     });
   }
 
-  faceMatch(deviceType: string, img: string, key: string, video: any) {
-    const data = {
+  faceMatch(deviceType: string, img: string, key: string, video: any, scenario) {
+    let dataBase64 = {
       title: img,
       body: video,
       userId: 1
     };
 
-    return this.http.post('https://jsonplaceholder.typicode.com/posts', data);
+    let data200KO = {
+      title: img,
+      body: key,
+      userId: 50
+    };
+
+    let dataString = {
+      title: img,
+      body: key,
+      userId: 1
+    };
+
+    let data = {};
+
+    let endpointOK = 'https://jsonplaceholder.typicode.com/posts';
+    let endpointKO = 'https://jsonplaceholder.typicode.com/postszz';
+    let endpoint = '';
+
+    switch (scenario) {
+      case 1:
+        console.log('Base64 to API 200 OK');
+        data = dataBase64;
+        endpoint = endpointOK;
+        break;
+      case 2:
+        console.log('String to API 200 OK');
+        data = dataString;
+        endpoint = endpointOK;
+        break;
+      case 3:
+        console.log('Base64 to API 200 KO');
+        data = data200KO;
+        endpoint = endpointOK;
+        break;
+      case 4:
+        console.log('String to API 200 KO');
+        data = data200KO;
+        endpoint = endpointOK;
+        break;
+      case 5:
+        console.log('Base64 to API 500 KO');
+        data = dataBase64;
+        endpoint = endpointKO;
+        break;
+      case 6:
+        console.log('String to API 500 KO');
+        data = dataString;
+        endpoint = endpointKO;
+        break;            
+    }
+
+    return this.http.post(endpoint, JSON.stringify(data));
 
     /*
     return of({
