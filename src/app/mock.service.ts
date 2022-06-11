@@ -44,23 +44,15 @@ export class MockService {
     let endpoint = '';
 
     switch (scenario) {
+      // BASE64
       case 1:
         console.log('Base64 to API 200 OK');
         data = dataBase64;
         endpoint = endpointOK;
         break;
-      case 2:
-        console.log('String to API 200 OK');
-        data = dataString;
-        endpoint = endpointOK;
-        break;
+      // NOT WORKING
       case 3:
         console.log('Base64 to API 200 KO');
-        data = data200KO;
-        endpoint = endpointOK;
-        break;
-      case 4:
-        console.log('String to API 200 KO');
         data = data200KO;
         endpoint = endpointOK;
         break;
@@ -68,6 +60,19 @@ export class MockService {
         console.log('Base64 to API 500 KO');
         data = dataBase64;
         endpoint = endpointKO;
+        break;
+
+      // STRING
+      case 2:
+        console.log('String to API 200 OK');
+        data = dataString;
+        endpoint = endpointOK;
+        break;
+      // NOT WORKING
+      case 4:
+        console.log('String to API 200 KO');
+        data = data200KO;
+        endpoint = endpointOK;
         break;
       case 6:
         console.log('String to API 500 KO');
