@@ -1,5 +1,5 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
-import { catchError, delay, mergeMap, retryWhen } from 'rxjs/operators';
+import { catchError, delay, mergeMap, retry, retryWhen } from 'rxjs/operators';
 import { of, throwError } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Platform } from '@angular/cdk/platform';
@@ -99,7 +99,6 @@ export class VideoComponent implements OnInit {
 
   async ngOnInit() {
     //console.log('START: ngOnInit')
-    console.log('v1.7');
     this.options = { ...getDimensions() };
     this.getDeviceType();
     this.initializeMediaRecorder();
@@ -148,7 +147,8 @@ export class VideoComponent implements OnInit {
     // alert(video);
     this.mockService
       .faceMatch(this.deviceType, '', this.key, video.split(';base64,')[1], scenario)
-      
+      .pipe(retry(3))
+      /*
       .pipe(
         retryWhen((errors) =>
           errors.pipe(
@@ -172,7 +172,7 @@ export class VideoComponent implements OnInit {
           return null;
         })
       )
-      
+      */
       .subscribe((res) => {
         if (res && res['data']) {
           console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
