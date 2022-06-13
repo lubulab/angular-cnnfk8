@@ -62,9 +62,7 @@ export class VideoComponent implements OnInit {
     private platform: Platform,
     private mockService: MockService,
     private router: Router
-  ) {
-    
-  }
+  ) {}
 
   private getDeviceType() {
     //console.log('START: getDeviceType')
@@ -94,8 +92,8 @@ export class VideoComponent implements OnInit {
         this.stream = stream;
         this.videoElement.srcObject = this.stream;
       });
-      //console.log('END: initializeMediaRecorder')
-    }
+    //console.log('END: initializeMediaRecorder')
+  }
 
   async ngOnInit() {
     //console.log('START: ngOnInit')
@@ -108,7 +106,7 @@ export class VideoComponent implements OnInit {
   showInstructions(scenario) {
     //console.log('START: showInstructions')
     let nmoves = '3';
-    let sessionId = 'EIRFORPAYBACK' + Math.floor(Math.random() * 5 + 0); 
+    let sessionId = 'EIRFORPAYBACK' + Math.floor(Math.random() * 5 + 0);
     this.mockService.livenessInit(sessionId, nmoves).subscribe((res) => {
       if (res['esito'].toUpperCase() === 'OK') {
         this.videoInstructions = res['moves'];
@@ -120,7 +118,7 @@ export class VideoComponent implements OnInit {
   }
 
   startRecording = async (scenario) => {
-    console.log('START: startRecording')
+    console.log('START: startRecording');
     this.mimeType = 'video/webm';
     if (!isMimeTypeSupported(this.mimeType)) {
       this.mimeType = 'video/mp4; codecs="avc1.424028, mp4a.40.2"';
@@ -138,17 +136,22 @@ export class VideoComponent implements OnInit {
     this.startTimer();
     this.onDataAvailableEvent();
     this.onStopRecordingEvent(scenario);
-    console.log('END: startRecording')
+    console.log('END: startRecording');
   };
 
   saveVideo = (video: any, scenario) => {
-    console.log('START: saveVideo')
+    console.log('START: saveVideo');
     let count = 4;
     // alert(video);
     this.mockService
-      .faceMatch(this.deviceType, '', this.key, video.split(';base64,')[1], scenario)
-      .pipe(retry(3))
-      /*
+      .faceMatch(
+        this.deviceType,
+        '',
+        this.key,
+        video.split(';base64,')[1],
+        scenario
+      )
+      /*.pipe(retry(3))*/
       .pipe(
         retryWhen((errors) =>
           errors.pipe(
@@ -172,53 +175,55 @@ export class VideoComponent implements OnInit {
           return null;
         })
       )
-      */
-      .subscribe((res) => {
-        if (res && res['data']) {
-          console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
-          // this.router.navigate(['thanks']);
-        } else {
-          console.log('INSIDE FACEMATCH SUBSCRIBE: 200 KO');
-          //.open(PopUpErrorAccountComponent, dialogConfig)
-          //.afterClosed()
-          //.subscribe((result) => {
-          //this.counter++;
-          //console.log('this.counter', this.counter);
-          //if (this.counter >= 3) {
-          //console.log('from if');
-          //const dialogConfig = new MatDialogConfig();
-          //dialogConfig.disableClose = true;
-          //dialogConfig.width = '100%';
-          //dialogConfig.data = { name: 'uploadVideoFinalError' };
-          //this.matDialog
-          //.open(PopUpErrorAccountComponent, dialogConfig)
-          //.afterClosed()
-          //.subscribe((result) => {
-          //this.router.forward(null, true);
-          //});
-          //} else {
-          //this.showInstructionsModal = false;
-          //}
-          // });
-      }
-    }, (err) => {
-      console.log('INSIDE FACEMATCH ERROR', err);
-    });
-    console.log('END: saveVideo')
+      .subscribe(
+        (res) => {
+          if (res && res['data']) {
+            console.log('INSIDE FACEMATCH SUBSCRIBE: 200 OK');
+            // this.router.navigate(['thanks']);
+          } else {
+            console.log('INSIDE FACEMATCH SUBSCRIBE: 200 KO');
+            //.open(PopUpErrorAccountComponent, dialogConfig)
+            //.afterClosed()
+            //.subscribe((result) => {
+            //this.counter++;
+            //console.log('this.counter', this.counter);
+            //if (this.counter >= 3) {
+            //console.log('from if');
+            //const dialogConfig = new MatDialogConfig();
+            //dialogConfig.disableClose = true;
+            //dialogConfig.width = '100%';
+            //dialogConfig.data = { name: 'uploadVideoFinalError' };
+            //this.matDialog
+            //.open(PopUpErrorAccountComponent, dialogConfig)
+            //.afterClosed()
+            //.subscribe((result) => {
+            //this.router.forward(null, true);
+            //});
+            //} else {
+            //this.showInstructionsModal = false;
+            //}
+            // });
+          }
+        },
+        (err) => {
+          console.log('INSIDE FACEMATCH ERROR', err);
+        }
+      );
+    console.log('END: saveVideo');
   };
 
   blobToBase64(blob) {
-    console.log('START: blobToBase64')
+    console.log('START: blobToBase64');
     return new Promise((resolve, _) => {
       const reader = new FileReader();
       reader.onloadend = () => resolve(reader.result);
       reader.readAsDataURL(blob);
-      console.log('END: blobToBase64')
+      console.log('END: blobToBase64');
     });
   }
 
   async startTimer() {
-    console.log('START: startTimer')
+    console.log('START: startTimer');
     //this.showInstructionsModal = true;
     let delayInterval = (12 / this.videoInstructions.length) * 1000;
     for (let instruction of this.videoInstructions) {
@@ -226,14 +231,14 @@ export class VideoComponent implements OnInit {
       await delayTime(delayInterval);
     }
     this.stopRecording();
-    console.log('END: startTimer')
+    console.log('END: startTimer');
   }
 
   stopRecording() {
-    console.log('START: stopRecording')
+    console.log('START: stopRecording');
     this.mediaRecorder.stop();
     this.isRecording = !this.isRecording;
-    console.log('END: stopRecording')
+    console.log('END: stopRecording');
   }
 
   onDataAvailableEvent() {
@@ -251,7 +256,7 @@ export class VideoComponent implements OnInit {
   }
 
   async onStopRecordingEvent(scenario) {
-    console.log('START: onStopRecordingEvent')
+    console.log('START: onStopRecordingEvent');
     const stopped = new Promise((resolve, reject) => {
       this.mediaRecorder.onstop = resolve;
       this.mediaRecorder.onerror = (event: any) => reject(event.name);
@@ -261,7 +266,7 @@ export class VideoComponent implements OnInit {
     let base64data = await this.blobToBase64(videoBuffer);
     // console.log(base64data);
     this.saveVideo(base64data, scenario);
-    console.log('END: onStopRecordingEvent')
+    console.log('END: onStopRecordingEvent');
   }
 
   getInstruction(key: string): string {
@@ -272,5 +277,4 @@ export class VideoComponent implements OnInit {
     //console.log('END: getInstruction')
     return modalConstants[key].instruction;
   }
-
 }
