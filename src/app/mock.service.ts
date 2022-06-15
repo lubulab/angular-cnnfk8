@@ -19,49 +19,13 @@ export class MockService {
   }
 
   faceMatch(deviceType: string, img: string, key: string, video: any, scenario) {
-    let dataBase64 = {
+    let data = {
       title: img,
       body: video,
       userId: 1
     };
 
-    let dataString = {
-      title: img,
-      body: key,
-      userId: 1
-    };
-
-    let data = {};
-
-    let endpointOK = 'https://httpbin.org/post';
-    let endpointKO = 'https://httpbin.org/postzz';
-    let endpoint = '';
-
-    switch (scenario) {
-      // BASE64
-      case 1:
-        console.log('Base64 to API 200 OK');
-        data = dataBase64;
-        endpoint = endpointOK;
-        break;
-      case 5:
-        console.log('Base64 to API 500 KO');
-        data = dataBase64;
-        endpoint = endpointKO;
-        break;
-
-      // STRING
-      case 2:
-        console.log('String to API 200 OK');
-        data = dataString;
-        endpoint = endpointOK;
-        break;
-      case 6:
-        console.log('String to API 500 KO');
-        data = dataString;
-        endpoint = endpointKO;
-        break;            
-    }
+    let endpoint = 'https://httpbin.org/post';
 
     return this.http.post(endpoint, data);
     //return this.http.post(endpoint, JSON.stringify(data));

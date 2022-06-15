@@ -81,7 +81,7 @@ export class VideoComponent implements OnInit {
     navigator.mediaDevices
       .getUserMedia({
         audio: false,
-        video: { facingMode: 'user', frameRate: 30 },
+        video: { width: { exact: 320 }, height: { exact: 240 }, facingMode: 'user', frameRate: 10 },
       })
       .then(async (stream) => {
         this.videoElement = this.videoElementRef.nativeElement;
